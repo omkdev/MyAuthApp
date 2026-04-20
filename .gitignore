@@ -1,0 +1,24 @@
+# Built files
+*.iml
+.gradle
+/local.properties
+/.idea
+/build
+/captures
+.externalNativeBuild
+.caches
+
+# Android specific
+/app/build
+*.apk
+*.aab
+*.ap_
+
+# Keys - NEVER commit these
+*.jks
+*.keystore
+keystore.properties
+
+# OS files
+.DS_Store
+Thumbs.db
