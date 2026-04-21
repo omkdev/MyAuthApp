@@ -17,21 +17,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your access token:"
-        android:textSize="14sp"
-        android:textColor="#888888"
-        android:layout_marginBottom="8dp"/>
-
-    <TextView
-        android:id="@+id/tvToken"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="11sp"
-        android:textColor="#333333"
-        android:background="#F0F0F0"
-        android:padding="12dp"
-        android:layout_marginBottom="32dp"/>
+        android:text="Welcome to the App"
+        android:textSize="18sp"
+        android:textColor="#555555"
+        android:layout_marginBottom="40dp"/>
 
     <Button
         android:id="@+id/btnLogout"

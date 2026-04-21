@@ -23,9 +23,8 @@ class HomeActivity : AppCompatActivity() {
 
         val state = stateManager.read()
 
-        // Show the first 80 characters of the access token so you can see it worked
-        val token = state.accessToken ?: "No token found"
-        findViewById<TextView>(R.id.tvToken).text = "${token.take(80)}..."
+        // You can still access the tokens here if needed for API calls, 
+        // but we are no longer displaying them on screen.
 
         // Logout button
         findViewById<Button>(R.id.btnLogout).setOnClickListener {
