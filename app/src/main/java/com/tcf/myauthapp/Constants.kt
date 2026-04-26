@@ -11,11 +11,9 @@ object Constants {
     // Your Keycloak client ID
     const val CLIENT_ID = "android-app"
 
-    val REDIRECT_URI: Uri =
-        Uri.parse("com.tcf.myauthapp://oauth2redirect")
+    const val REDIRECT_URI = "com.tcf.myauthapp://oauth2redirect"
 
-    val LOGOUT_REDIRECT_URI: Uri =
-        Uri.parse("com.tcf.myauthapp://oauth2redirect/logout")
+    const val LOGOUT_REDIRECT_URI = "com.tcf.myauthapp://oauth2redirect/logout"
 
     const val SCOPE = "openid email profile"
 }

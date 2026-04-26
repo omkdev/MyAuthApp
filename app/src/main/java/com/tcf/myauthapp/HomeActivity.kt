@@ -3,6 +3,7 @@ package com.tcf.myauthapp
 
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -40,7 +41,7 @@ class HomeActivity : AppCompatActivity() {
             // Tell Keycloak to end the session on the server side too
             val endSessionRequest = EndSessionRequest.Builder(config)
                 .setIdTokenHint(state.idToken)
-                .setPostLogoutRedirectUri(Constants.LOGOUT_REDIRECT_URI)
+                .setPostLogoutRedirectUri(Uri.parse(Constants.LOGOUT_REDIRECT_URI))
                 .build()
 
             val completionIntent = Intent(this, LoginActivity::class.java).apply {
@@ -54,7 +55,7 @@ class HomeActivity : AppCompatActivity() {
                 android.app.PendingIntent.getActivity(
                     this, 0, completionIntent,
                     android.app.PendingIntent.FLAG_UPDATE_CURRENT or
-                            android.app.PendingIntent.FLAG_IMMUTABLE
+                            android.app.PendingIntent.FLAG_MUTABLE
                 )
             )
         } else {

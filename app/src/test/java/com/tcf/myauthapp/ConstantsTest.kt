@@ -9,7 +9,7 @@ class ConstantsTest {
     fun testRedirectUri_isCorrect() {
         val expected = "com.tcf.myauthapp://oauth2redirect"
         assertEquals("The redirect URI must match the scheme defined in build.gradle", 
-            expected, Constants.REDIRECT_URI.toString())
+            expected, Constants.REDIRECT_URI)
     }
 
     @Test

@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.security.crypto)
 
     implementation("net.openid:appauth:0.11.1")
     implementation("androidx.browser:browser:1.8.0")

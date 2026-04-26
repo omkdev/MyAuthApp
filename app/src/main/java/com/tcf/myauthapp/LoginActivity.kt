@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
                     config,
                     Constants.CLIENT_ID,
                     ResponseTypeValues.CODE,
-                    Constants.REDIRECT_URI
+                    Uri.parse(Constants.REDIRECT_URI)
                 )
                     .setScope(Constants.SCOPE)
                     .build()
