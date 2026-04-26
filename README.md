@@ -2,7 +2,7 @@ MyAuthApp
 
 Secure Android authentication demo using OAuth2 Authorization Code Flow + PKCE with Keycloak as the Identity Provider.
 
-Built to replicate real-world authentication systems with a focus on security, token lifecycle management, and clean architecture.
+Built to simulate real-world authentication systems with a focus on security, token lifecycle management, and clean architecture.
 
 🚀 Key Highlights
 🔐 Secure OAuth2 + PKCE flow (prevents authorization code interception)
@@ -10,10 +10,11 @@ Built to replicate real-world authentication systems with a focus on security, t
 🧠 OpenID Connect (OIDC) compliant identity handling
 🔄 Token lifecycle management (access, refresh, ID tokens)
 🐳 Local Keycloak setup using Docker
-🏗️ Modular architecture (auth, storage, UI separation)
-
+🏗️ Modular architecture separating auth, storage, and UI layers
 📱 Screenshots
+
 Login → Keycloak → Redirect → Authenticated Home
+(Add actual screenshots here)
 
 🛠️ Tech Stack
 Technology	Purpose
@@ -23,7 +24,6 @@ Keycloak	Identity & Access Management
 Docker	Local Keycloak setup
 Chrome Custom Tabs	Secure authentication UI
 SharedPreferences	Token storage (demo only)
-
 🏗️ Architecture Flow
 LoginActivity
    ↓
@@ -40,9 +40,8 @@ Token Exchange (Code + PKCE Verifier)
 AuthStateManager (store tokens)
    ↓
 HomeActivity
-
 🔐 Security Considerations
-✅ PKCE prevents authorization code interception
+✅ PKCE prevents authorization code interception attacks
 ✅ Chrome Custom Tabs avoids WebView-based credential leaks
 ⚠️ SharedPreferences used only for demo (not secure for production)
 🔥 Production Improvements
@@ -50,14 +49,12 @@ Use EncryptedSharedPreferences + Android KeyStore
 Enforce HTTPS-only communication
 Implement certificate pinning
 Add secure logout & token revocation
-Store tokens using hardware-backed encryption
-
+Use hardware-backed encryption for token storage
 🚀 Getting Started
 Prerequisites
 Android Studio
 Docker
 Android Emulator (API 24+)
-
 1️⃣ Start Keycloak
 docker run -p 8080:8080 \
   -e KEYCLOAK_ADMIN=admin \
@@ -66,7 +63,9 @@ docker run -p 8080:8080 \
 2️⃣ Configure Keycloak
 Open: http://localhost:8080
 Login: admin / admin
+
 Create:
+
 Realm → myrealm
 Client → android-app (public)
 Redirect URI → com.tcf.myauthapp://*
@@ -75,33 +74,31 @@ Create a test user (email verified)
 Update Constants.kt
 Run on emulator
 Click Login → authenticate → redirected back
-
 📂 Project Structure
 com.tcf.myauthapp/
-├── Constants.kt                # Configuration values
-├── AppAuthConnectionBuilder   # HTTP support (dev only)
-├── AuthStateManager           # Token management
-├── LoginActivity              # Authentication entry point
-└── HomeActivity               # Post-login screen
-
+├── Constants.kt               # Configuration values
+├── AppAuthConnectionBuilder  # HTTP support (dev only)
+├── AuthStateManager          # Token management
+├── LoginActivity             # Authentication entry point
+└── HomeActivity              # Post-login UI
 🧠 What I Learned
 OAuth2 Authorization Code Flow with PKCE (end-to-end)
 OpenID Connect (OIDC) fundamentals
-Secure mobile authentication patterns
+Secure mobile authentication best practices
 Token lifecycle (access, refresh, ID tokens)
-Keycloak configuration (realm, client, users)
+Keycloak setup (realm, client, users)
 AppAuth integration in Android
 ⚠️ Important Note
 
 AppAuthConnectionBuilder.kt is used only for local HTTP testing.
-❌ Do NOT use in production environments.
+❌ Do NOT use in production.
 
 📈 Future Enhancements
 🔐 Encrypted token storage (Jetpack Security + KeyStore)
 🌍 Multi-environment support (dev / staging / prod)
 📡 Backend API integration using access tokens
-🔄 Silent token refresh implementation
+🔄 Silent token refresh handling
 🧪 Unit & integration tests for authentication flows
-
 📄 License
+
 MIT License
