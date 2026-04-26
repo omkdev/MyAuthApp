@@ -18,7 +18,7 @@ Built to simulate real-world authentication systems with a focus on **security, 
 ---
 
 ## 📱 Screenshots
-
+![Architecture](docs/android_auth_architecture.jpg)
 > Login → Keycloak → Redirect → Authenticated Home
 > 
 > 
