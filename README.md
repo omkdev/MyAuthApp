@@ -1,116 +1,165 @@
-# MyAuthApp 🔐
+# MyAuthApp
 
-An Android app demonstrating secure user authentication using
-**OAuth2 Authorization Code Flow + PKCE** with **Keycloak** as
-the identity provider.
+Secure Android authentication demo using **OAuth2 Authorization Code Flow + PKCE** with **Keycloak** as the Identity Provider.
 
-Built as a learning project to understand industry-standard
-authentication practices used by Google, Facebook, and every
-major app.
+Built to replicate **real-world authentication flows** used in modern applications while focusing on **security, token management, and clean architecture**.
+
+---
+
+## 🚀 Key Highlights
+
+- 🔐 **Secure OAuth2 + PKCE Flow** (prevents authorization code interception)
+- 🌐 **Browser-based login via Chrome Custom Tabs** (no WebView vulnerabilities)
+- 🧠 **OIDC-compliant identity handling**
+- 🔄 **Token lifecycle management** (access, refresh, ID tokens)
+- 🐳 **Locally hosted Keycloak using Docker**
+- 🏗️ **Modular architecture separating auth, storage, and UI layers**
 
 ---
 
 ## 📱 Screenshots
 
-> Login Screen → Keycloak Login → Home Screen with Token
+> Login → Keycloak → Redirect → Authenticated Home
+> 
 
----
-
-## ✨ Features
-
-- ✅ OAuth2 Authorization Code Flow with PKCE
-- ✅ OpenID Connect (OIDC) for identity
-- ✅ Chrome Custom Tab for secure login (no WebView)
-- ✅ Auto-discovery of Keycloak endpoints via fetchFromIssuer()
-- ✅ Token storage using SharedPreferences
-- ✅ Full logout with server-side session termination
-- ✅ Keycloak running locally via Docker
 
 ---
 
 ## 🛠️ Tech Stack
 
 | Technology | Purpose |
-|---|---|
+| --- | --- |
 | Kotlin | Android development |
-| AppAuth (0.11.1) | OAuth2 / OIDC library |
-| Keycloak 24.0.1 | Identity & Access Management server |
-| Docker | Running Keycloak locally |
-| Chrome Custom Tab | Secure browser for login |
-| SharedPreferences | Token storage |
+| AppAuth | OAuth2 / OIDC implementation |
+| Keycloak | Identity & Access Management |
+| Docker | Local Keycloak setup |
+| Chrome Custom Tabs | Secure authentication UI |
+| SharedPreferences | Token persistence (demo) |
 
 ---
 
-## 🏗️ Architecture
-LoginActivity → fetchFromIssuer() → Chrome Custom Tab
-↓
-Keycloak Login Page (user enters credentials)
-↓
-Redirect back with auth code
-↓
-Token exchange (code + PKCE verifier)
-↓
-Tokens saved → HomeActivity
+## 🏗️ Architecture Flow
+
+```
+LoginActivity
+   ↓
+fetchFromIssuer()  (OIDC discovery)
+   ↓
+Chrome Custom Tab (Auth Request)
+   ↓
+Keycloak Login
+   ↓
+Redirect with Authorization Code
+   ↓
+Token Exchange (Code + PKCE Verifier)
+   ↓
+AuthStateManager (store tokens)
+   ↓
+HomeActivity
+```
 
 ---
 
-## 🚀 How to Run This Project
+## 🔐 Security Considerations
+
+- ✅ PKCE used to mitigate **authorization code interception**
+- ✅ Chrome Custom Tabs used instead of WebView (prevents credential leakage)
+- ⚠️ Token storage currently uses SharedPreferences (for demo)
+
+### 🔥 Production Improvements
+
+- Replace with **EncryptedSharedPreferences + Android KeyStore**
+- Enforce **HTTPS only** (remove custom connection builder)
+- Add **certificate pinning**
+- Implement **secure logout + token revocation**
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
+
 - Android Studio
-- Docker Desktop
+- Docker
 - Android Emulator (API 24+)
 
-### Step 1 — Start Keycloak
-```bash
-docker run -p 8080:8080 \
-  -e KEYCLOAK_ADMIN=admin \
-  -e KEYCLOAK_ADMIN_PASSWORD=admin \
+---
+
+### 1️⃣ Start Keycloak
+
+```
+docker run-p8080:8080 \
+-eKEYCLOAK_ADMIN=admin \
+-eKEYCLOAK_ADMIN_PASSWORD=admin \
   quay.io/keycloak/keycloak:24.0.1 start-dev
 ```
 
-### Step 2 — Configure Keycloak
-1. Open `http://localhost:8080` → login with `admin/admin`
-2. Create realm: `myrealm`
-3. Create client: `android-app` (public client)
-4. Set redirect URI: `com.tcf.myauthapp://*`
-5. Create a test user with email verified ON
+---
 
-### Step 3 — Run the App
-1. Open project in Android Studio
-2. Update `Constants.kt` with your Keycloak URL
-3. Run on emulator
+### 2️⃣ Configure Keycloak
+
+- Open: `http://localhost:8080`
+- Login: `admin / admin`
+
+Create:
+
+- Realm → `myrealm`
+- Client → `android-app` (public)
+- Redirect URI → `com.tcf.myauthapp://*`
+- Test user (email verified)
+
+---
+
+### 3️⃣ Run the App
+
+- Update `Constants.kt`
+- Run on emulator
+- Click Login → authenticate → redirected back
 
 ---
 
 ## 📂 Project Structure
+
+```
 com.tcf.myauthapp/
-├── Constants.kt                 → All config values
-├── AppAuthConnectionBuilder.kt  → HTTP support for local dev
-├── AuthStateManager.kt          → Token storage
-├── LoginActivity.kt             → Login flow
-└── HomeActivity.kt              → Post-login screen
+├── Constants.kt                # Config values
+├── AppAuthConnectionBuilder   # HTTP support (dev only)
+├── AuthStateManager           # Token handling
+├── LoginActivity              # Auth entry point
+└── HomeActivity               # Post-login UI
+```
 
 ---
 
-## 🧠 What I Learned
+## 🧠 Learnings
 
-- OAuth2 Authorization Code + PKCE flow
-- Why Chrome Custom Tab is required (not WebView)
-- How JWT tokens work (access, ID, refresh)
-- Keycloak realm, client and user setup
-- AppAuth library for Android
-- Token lifecycle and storage
+- OAuth2 Authorization Code Flow with PKCE (end-to-end)
+- OIDC identity layer on top of OAuth2
+- Secure mobile authentication patterns
+- Token lifecycle (access, refresh, ID tokens)
+- Keycloak setup (realm, client, users)
+- AppAuth integration in Android
 
 ---
 
-## ⚠️ Note
+## ⚠️ Important Note
 
-`AppAuthConnectionBuilder.kt` is for **local development only**
-(allows HTTP). Remove it in production when using HTTPS.
+`AppAuthConnectionBuilder.kt` is used **only for local HTTP testing**.
+
+**Do NOT use in production.**
+
+---
+
+## 📈 Future Enhancements
+
+- 🔐 Encrypted token storage (Jetpack Security + KeyStore)
+- 🌍 Multi-environment support (dev/staging/prod)
+- 📡 Backend API integration using access tokens
+- 🔄 Silent token refresh handling
+- 🧪 Unit + integration testing for auth flows
 
 ---
 
 ## 📄 License
 
-MIT License — feel free to use this as a reference for your own projects.
+MIT License
