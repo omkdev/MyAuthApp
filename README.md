@@ -164,5 +164,4 @@ com.tcf.myauthapp/
 ---
 
 ## 📄 License
-
-MIT License
+MIT License © 2025 Om Kanse
